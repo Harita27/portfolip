@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} - Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-img">
+                    <span class="initials">{{ data.name[0] }}</span>
+                </div>
+                <h1>{{ data.name }}</h1>
+                <p class="title">{{ data.title }}</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                </ul>
+            </nav>
+            <div class="contact">
+                <p><i class="fas fa-envelope"></i> {{ data.contact.email }}</p>
+                <p><i class="fas fa-phone"></i> {{ data.contact.phone }}</p>
+                <p><i class="fab fa-github"></i> <a href="https://{{ data.contact.github }}" target="_blank">GitHub</a></p>
+                <p><i class="fab fa-linkedin"></i> <a href="https://{{ data.contact.linkedin }}" target="_blank">LinkedIn</a></p>
+            </div>
+        </aside>
+        <main>
+            <section id="about">
+                <h2>About Me</h2>
+                <div class="card">
+                    <p>{{ data.summary }}</p>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2>Skills</h2>
+                <div class="card">
+                    <div class="skills-grid">
+                        <div class="skill-group">
+                            <h3>Languages</h3>
+                            <div class="skill-tags">
+                                {% for skill in data.skills.languages %}
+                                <span class="tag">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Frameworks</h3>
+                            <div class="skill-tags">
+                                {% for skill in data.skills.frameworks %}
+                                <span class="tag">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Databases</h3>
+                            <div class="skill-tags">
+                                {% for skill in data.skills.databases %}
+                                <span class="tag">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Concepts</h3>
+                            <div class="skill-tags">
+                                {% for skill in data.skills.concepts %}
+                                <span class="tag">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience">
+                <h2>Experience</h2>
+                {% for job in data.experience %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ job.title }}</h3>
+                        <span class="period">{{ job.period }}</span>
+                    </div>
+                    <h4>{{ job.company }} | {{ job.location }}</h4>
+                    <ul>
+                        {% for resp in job.responsibilities %}
+                        <li>{{ resp }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    {% for project in data.projects %}
+                    <div class="card project-card">
+                        <h3>{{ project.name }}</h3>
+                        <span class="tech-stack">{{ project.tech }}</span>
+                        <ul>
+                            {% for detail in project.description %}
+                            <li>{{ detail }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="education">
+                <h2>Education</h2>
+                {% for edu in data.education %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ edu.degree }}</h3>
+                        <span class="period">{{ edu.period }}</span>
+                    </div>
+                    <h4>{{ edu.institution }}</h4>
+                    <p class="score">{{ edu.score }}</p>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section id="achievements">
+                <h2>Achievements & Certifications</h2>
+                <div class="card">
+                    <h3>Certifications</h3>
+                    <ul>
+                        {% for cert in data.certifications %}
+                        <li>{{ cert }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Achievements</h3>
+                    <ul>
+                        {% for achievement in data.achievements %}
+                        <li>{{ achievement }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>© {{ data.name }} | Backend Developer Portfolio</p>
+    </footer>
+</body>
+</html>
